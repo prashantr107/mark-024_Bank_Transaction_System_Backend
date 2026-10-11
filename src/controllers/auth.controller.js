@@ -9,4 +9,4 @@ const userModel  = require("../models/user.model")
 function userRegisterController(req, res) {
     const { email, name, password } = req.body
 }
-#that's for the day have a nice day
+/*that's for the day have a nice day*/
