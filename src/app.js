@@ -5,11 +5,10 @@ const authRouter = require('./routes/auth.routes')
 const app = express() 
 
 
+// Parse request bodies and cookies before handing requests to the auth routes.
 app.use(express.json())
 app.use(cookieParser())
 app.use('/api/auth', authRouter)
 
 
 module.exports = app
-
-/* hello */

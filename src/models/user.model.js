@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [ true, "Password is required for creating an account" ],
         minlength: [ 6, "password should contain more than 6 character" ],
+        // Keep credentials out of query results unless a caller explicitly opts in.
         select: false
     },
     systemUser: {
@@ -32,6 +33,7 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.pre("save", async function () {
+    // Avoid hashing an unchanged password when an existing user is saved.
     if (!this.isModified("password")) {
         return 
     }
@@ -44,9 +46,7 @@ userSchema.pre("save", async function () {
 })
 
 userSchema.methods.comparePassword = async function (password) {
-
-    console.log(password, this.password)
-
+    // Compare with the stored hash without logging either password value.
     return await bcrypt.compare(password, this.password)
 
 }
@@ -55,5 +55,3 @@ userSchema.methods.comparePassword = async function (password) {
 const userModel = mongoose.model("user", userSchema)
 
 module.exports = userModel
-
-/* hello */

@@ -10,6 +10,7 @@ const jwt = require("jsonwebtoken")
 async function userRegisterController(req, res) {
     const { email, name, password } = req.body
 
+    // Reject duplicate emails before creating the account.
     const isExists = await userModel.findOne({ email: email })
     if (isExists) {
         return res.status(422).json({ message: 'User already exists', status: "failed" 
@@ -21,6 +22,7 @@ async function userRegisterController(req, res) {
         email, password, name
     })
 
+    // The token is returned in the response and stored in a cookie.
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '3d' })
 
     res.cookie("token", token)
@@ -41,5 +43,3 @@ async function userRegisterController(req, res) {
 module.exports = {
     userRegisterController
 }
-
-/* hello */
