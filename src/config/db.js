@@ -13,3 +13,5 @@ function connectDB() {
 }
 
 module.exports = connectDB
+
+/* all the best */
