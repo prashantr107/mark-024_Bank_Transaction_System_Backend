@@ -12,3 +12,5 @@ app.listen(3000, ()=>{
 
 
 /* hello world */
+
+/* going home */
